@@ -219,7 +219,7 @@ PNGOutput::write_scanline (int y, int z, TypeDesc format,
     }
 
     // PNG specifically dictates unassociated (un-"premultiplied") alpha
-    if (m_spec.alpha_channel != -1) {
+    if (m_spec.alpha_channel != -1 && m_spec.get_int_attribute ("oiio:UnassociatedAlpha", false) == false) {
         float gamma = m_spec.get_float_attribute ("oiio:Gamma", 1.0f);
         if (m_spec.format == TypeDesc::UINT16)
             deassociateAlpha ((unsigned short *)data, m_spec.width,
